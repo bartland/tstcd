@@ -14,11 +14,11 @@ LINK_FLAGS="-O2  -Wl,--allow-multiple-definition  -Wl,-Bstatic -lcurl -lssl -lcr
 
 echo "============================================"
 echo "Building C object lib.c.obj"
-/C/msys64/mingw64/bin/gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytst/include $COMPILE_FLAGS -o lib.c.obj   -c $PROOT/mytst/src/lib.c
+gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytst/include $COMPILE_FLAGS -o lib.c.obj   -c $PROOT/mytst/src/lib.c
 
 echo "--------------------------------------------"
 echo "Building C object lib2.c.obj"
-/C/msys64/mingw64/bin/gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytst/include $COMPILE_FLAGS -o lib2.c.obj   -c $PROOT/mytst/src/lib2.c
+gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytst/include $COMPILE_FLAGS -o lib2.c.obj   -c $PROOT/mytst/src/lib2.c
 
 echo "Built target mytst_obj"
 
@@ -34,9 +34,9 @@ echo "Built target mytst.a"
 echo "--------------------------------------------"
 echo "Linking C shared library libmytst.dll"
 
-/C/msys64/mingw64/bin/ar.exe cr tst_objects.a  lib.c.obj lib2.c.obj
+ar.exe cr tst_objects.a  lib.c.obj lib2.c.obj
 
-/C/msys64/mingw64/bin/gcc.exe \
+gcc.exe \
 -Wl,--whole-archive tst_objects.a -Wl,--no-whole-archive -Wl,--export-all-symbols -shared \
 -o libmytst.dll -Wl,--out-implib,libmytst.dll.a -Wl,--major-image-version,3,--minor-image-version,0 \
 $LINK_FLAGS
@@ -46,19 +46,19 @@ echo "Built target mytst"
 echo "============================================"
 echo "Building C object main.c.obj"
 
-/C/msys64/mingw64/bin/gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytstx/include -I$PROOT/mytst/include $COMPILE_FLAGS -o main.c.obj   -c $PROOT/mytstx/src/main.c
+gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytstx/include -I$PROOT/mytst/include $COMPILE_FLAGS -o main.c.obj   -c $PROOT/mytstx/src/main.c
 
 echo "--------------------------------------------"
 echo "Building C object maintst.c.obj"
 
-/C/msys64/mingw64/bin/gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytstx/include -I$PROOT/mytst/include $COMPILE_FLAGS -o maintst.c.obj   -c $PROOT/mytstx/src/maintst.c
+gcc.exe $DEFINES_THIRDPARTY -I$PROOT/mytstx/include -I$PROOT/mytst/include $COMPILE_FLAGS -o maintst.c.obj   -c $PROOT/mytstx/src/maintst.c
 
 echo "--------------------------------------------"
 echo "Linking C executable mytstx.exe"
 
-/C/msys64/mingw64/bin/ar.exe cr tstx_objects.a main.c.obj maintst.c.obj
+ar.exe cr tstx_objects.a main.c.obj maintst.c.obj
 
-/C/msys64/mingw64/bin/gcc.exe \
+gcc.exe \
 -Wl,--whole-archive tstx_objects.a -Wl,--no-whole-archive \
 -o mytstx.exe -Wl,--major-image-version,3,--minor-image-version,0  libmytst.dll.a \
 $LINK_FLAGS
